@@ -122,9 +122,11 @@ export function Gallery() {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          const el = e.target as HTMLImageElement;
-          el.src = el.dataset.src || '';
-          el.removeAttribute('data-lazy');
+          const el = e.target;
+          if (el && el.dataset && el.dataset.src) {
+            el.src = el.dataset.src;
+            el.removeAttribute('data-lazy');
+          }
           io.unobserve(el);
         }
       })
@@ -135,24 +137,29 @@ export function Gallery() {
 
   useEffect(() => {
     const lightbox = document.getElementById('lightbox');
-    const imgEl = document.getElementById('lightbox-img') as HTMLImageElement | null;
-    const open = (src: string) => {
-      if (!lightbox || !imgEl) return;
+    const imgEl = document.getElementById('lightbox-img');
+    if (!lightbox || !imgEl) return;
+
+    const handlers = [];
+
+    const open = (src) => {
       imgEl.src = src;
       lightbox.classList.remove('hidden');
     };
-    const close = () => lightbox?.classList.add('hidden');
+    const close = () => lightbox.classList.add('hidden');
 
-    document.querySelectorAll('[data-open]')?.forEach((el) => {
-      el.addEventListener('click', () => open((el as HTMLElement).dataset.src || ''));
+    const clickable = document.querySelectorAll('[data-open]');
+    clickable.forEach((el) => {
+      const handler = () => open(el.getAttribute('data-src') || '');
+      handlers.push({ el, handler });
+      el.addEventListener('click', handler);
     });
 
-    lightbox?.addEventListener('click', close);
+    lightbox.addEventListener('click', close);
 
     return () => {
-      document.querySelectorAll('[data-open]')?.forEach((el) => {
-        el.replaceWith(el.cloneNode(true));
-      });
+      handlers.forEach(({ el, handler }) => el.removeEventListener('click', handler));
+      lightbox.removeEventListener('click', close);
     };
   }, []);
 
