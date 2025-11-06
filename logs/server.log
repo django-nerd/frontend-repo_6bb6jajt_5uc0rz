@@ -1,0 +1,38 @@
+
+> vibe-generated-app@1.0.0 dev
+> vite
+
+
+  VITE v5.4.20  ready in 526 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://172.20.2.113:3000/
+Error:   Failed to scan for dependencies from entries:
+  /home/workspace/src/App.jsx
+/home/workspace/src/Test.jsx
+/home/workspace/src/main.jsx
+/home/workspace/src/components/Footer.jsx
+/home/workspace/src/components/Hero.jsx
+/home/workspace/src/components/Navbar.jsx
+/home/workspace/src/components/Sections.jsx
+
+  [31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mExpected ";" but found "as"[0m
+
+    src/components/Sections.jsx:125:30:
+[37m      125 │           const el = e.target [32mas[37m HTMLImageElement;
+          │                               [32m~~[37m
+          ╵                               [32m;[0m
+
+
+    at failureErrorWithLog (/home/workspace/node_modules/esbuild/lib/main.js:1472:15)
+    at /home/workspace/node_modules/esbuild/lib/main.js:945:25
+    at runOnEndCallbacks (/home/workspace/node_modules/esbuild/lib/main.js:1315:45)
+    at buildResponseToResult (/home/workspace/node_modules/esbuild/lib/main.js:943:7)
+    at /home/workspace/node_modules/esbuild/lib/main.js:955:9
+    at new Promise (<anonymous>)
+    at requestCallbacks.on-end (/home/workspace/node_modules/esbuild/lib/main.js:954:54)
+    at handleRequest (/home/workspace/node_modules/esbuild/lib/main.js:647:17)
+    at handleIncomingPacket (/home/workspace/node_modules/esbuild/lib/main.js:672:7)
+    at Socket.readFromStdout (/home/workspace/node_modules/esbuild/lib/main.js:600:7)
+7:14:06 AM [vite] Pre-transform error: Transform failed with 1 error:
+/home/workspace/src/components/Sections.jsx:125:30: ERROR: Expected ";" but found "as"
